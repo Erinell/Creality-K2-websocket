@@ -124,86 +124,71 @@ export class Printer {
         return JSON.parse(response).elapseVideoList;
     }
 
-    refreshSpool(cfsId: Number, slotId: Number) {
-        const req = Requests.createRequest('set', { "refreshBox": { "boxId": cfsId, "materialId": slotId } });
-        this.set(req);
+    refreshSpool(cfsId: number, slotId: number) {
+        this.set(Requests.refreshSpool(cfsId, slotId));
     }
 
     setLed(on: boolean) {
-        const req = Requests.createRequest('set', { "lightSw": on ? 1 : 0 });
-        this.set(req);
+        this.set(Requests.setLed(on));
     }
 
     enableFan(on: boolean) {
-        const req = Requests.createRequest('set', { "fan": on ? 1 : 0 });
-        this.set(req);
+        this.set(Requests.enableFan(on));
     }
 
     setFan(percent: number) {
         percent = Math.min(100, Math.max(0, percent));
-        const req = Requests.createRequest('set', { "gcodeCmd": `M106 P0 S${Math.round(percent * 255 / 100)}` });
-        this.set(req);
+        this.set(Requests.setFan(Math.round(percent * 255 / 100)));
     }
 
     enableSidesFans(on: boolean) {
-        const req = Requests.createRequest('set', { "fanAuxiliary": on ? 1 : 0 });
-        this.set(req);
+        this.set(Requests.enableSidesFans(on));
     }
 
     setSidesFans(percent: number) {
         percent = Math.min(100, Math.max(0, percent));
-        const req = Requests.createRequest('set', { "gcodeCmd": `M106 P2 S${Math.round(percent * 255 / 100)}` });
-        this.set(req);
+        this.set(Requests.setSidesFans(Math.round(percent * 255 / 100)));
     }
 
     enableCaseFans(on: boolean) {
-        const req = Requests.createRequest('set', { "fanCase": on ? 1 : 0 });
-        this.set(req);
+        this.set(Requests.enableCaseFans(on));
     }
 
     setCaseFans(percent: number) {
         percent = Math.min(100, Math.max(0, percent));
-        const req = Requests.createRequest('set', { "gcodeCmd": `M106 P1 S${Math.round(percent * 255 / 100)}` });
-        this.set(req);
+        this.set(Requests.setCaseFans(Math.round(percent * 255 / 100)));
     }
 
     setPosition(x: number, y: number, z: number, speed = 3000) {
-        const req = Requests.createRequest('set', { "setPosition": `X${x} Y${y} Z${z} F${speed}` });
-        this.set(req);
+        this.set(Requests.setPosition(x, y, z, speed));
     }
 
     setHome() {
-        const req = Requests.createRequest('set', { "autohome": "X Y Z" });
-        this.set(req);
+        this.set(Requests.setHome());
     }
 
     setFeedrate(percent: number) {
         percent = Math.min(100, Math.max(0, percent));
-        const req = Requests.createRequest('set', { "setFeedratePct": Math.round(percent) });
-        this.set(req);
+        this.set(Requests.setFeedrate(Math.round(percent)));
     }
 
     setNozzleTemp(temperature: number) {
         temperature = Math.min(temperature, this.status.maxNozzleTemp);
-        const req = Requests.createRequest('set', { "nozzleTempControl": temperature });
-        this.set(req);
+        this.set(Requests.setNozzleTemp(temperature));
     }
 
     setBedTemp(temperature: number) {
         temperature = Math.min(temperature, this.status.maxBedTemp);
-        const req = Requests.createRequest('set', { "bedTempControl": { "num": 0, "val": temperature } });
-        this.set(req);
+        this.set(Requests.setBedTemp(temperature));
     }
 
     setChamberTemp(temperature: number) {
         temperature = Math.min(temperature, this.status.maxBoxTemp);
-        const req = Requests.createRequest('set', { "boxTempControl": temperature });
-        this.set(req);
+        this.set(Requests.setChamberTemp(temperature));
     }
 
-    sendGcode(gcode: String) {
-        const req = Requests.createRequest('set', { "gcodeCmd": gcode });
-        this.set(req);
+    sendGcode(command: string) {
+        this.set(Requests.sendGcode(command));
     }
 
     getVideoUrl(file: IElapseVideo) {
@@ -215,18 +200,16 @@ export class Printer {
     }
 
     deleteGcodeFile(filename: string) {
-        const req = Requests.createRequest('set', { "opGcodeFile": `deleteprt:/mnt/UDISK/printer_data/gcodes/${filename}.gcode` });
-        this.set(req);
+        filename = filename.replace(".gcode", "");
+        this.set(Requests.deleteGcodeFile(filename));
     }
 
     deleteHistoryPrint(id: number) {
-        const req = Requests.createRequest('set', { "deleteHistory": [id] });
-        this.set(req);
+        this.set(Requests.deleteHistoryPrint(id));
     }
 
     deleteTimelapse(id: number) {
-        const req = Requests.createRequest('set', { "ctrlVideoFiles": { "cmd": "remove", "printId": "", "file": `/mnt/UDISK/creality/userdata/delay_image/video/${id}.mp4` } });
-        this.set(req);
+        this.set(Requests.deleteTimelapse(id));
     }
 
     async getColorsMatchFormat(): Promise<IColorMatch[]> {
@@ -250,22 +233,19 @@ export class Printer {
     }
 
     multiColorPrint(filename: string, calibration: boolean = false) {
-        const req = Requests.createRequest('set', { "multiColorPrint": { "gcode": `/mnt/UDISK/printer_data/gcodes/${filename}.gcode`, "enableSelfTest": calibration ? 1 : 0 } });
-        this.set(req);
+        filename = filename.replace(".gcode", "");
+        this.set(Requests.multiColorPrint(filename, calibration));
     }
 
     pause() {
-        const req = Requests.createRequest('set', { "pause": 1 });
-        this.set(req);
+        this.set(Requests.pause());
     }
 
     resume() {
-        const req = Requests.createRequest('set', { "pause": 0 });
-        this.set(req);
+        this.set(Requests.resume());
     }
 
     stop() {
-        const req = Requests.createRequest('set', { "stop": 1 });
-        this.set(req);
+        this.set(Requests.stop());
     }
 }
