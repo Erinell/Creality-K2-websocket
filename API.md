@@ -699,3 +699,31 @@ params           | value    | desc
 ```{"method":"set","params":{"multiColorPrint":{"gcode":"/mnt/UDISK/printer_data/gcodes/filename.gcode","enableSelfTest":0}}}```
 
 </details>
+
+<details>
+<summary>
+<b><code>Pause / Resume print</code></b>&nbsp;<code>{"method":"set","params":{"pause": 0}}</code> </summary>
+
+#### Params
+params  | value | desc
+--------|-------|----------------------
+"pause" | 0 - 1 | 0 = pause, 1 = resume
+
+#### Request
+```{"method":"set","params":{"pause": 0}}```
+
+</details>
+
+<details>
+<summary>
+<b><code>Stop print</code></b>&nbsp;<code>{"method":"set","params":{"stop": 1}}</code> </summary>
+
+#### Params
+params | value | desc
+-------|-------|-----
+"stop" | 1     |
+
+#### Request
+```{"method":"set","params":{"stop": 1}}```
+
+</details>

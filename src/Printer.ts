@@ -253,4 +253,19 @@ export class Printer {
         const req = Requests.createRequest('set', { "multiColorPrint": { "gcode": `/mnt/UDISK/printer_data/gcodes/${filename}.gcode`, "enableSelfTest": calibration ? 1 : 0 } });
         this.set(req);
     }
+
+    pause() {
+        const req = Requests.createRequest('set', { "pause": 1 });
+        this.set(req);
+    }
+
+    resume() {
+        const req = Requests.createRequest('set', { "pause": 0 });
+        this.set(req);
+    }
+
+    stop() {
+        const req = Requests.createRequest('set', { "stop": 1 });
+        this.set(req);
+    }
 }
