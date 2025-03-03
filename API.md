@@ -667,3 +667,35 @@ params  | value | desc
 ```{"method":"set","params":{"modifyMaterial":{"boxId":1,"id":3,"rfid":"00001","type":"PLA","vendor":"Creality","name":"CR-PLA","color":"#0ba552a","minTemp":190.0,"maxTemp":240.0,"pressure":0.056}}}```
 
 </details>
+
+<details>
+<summary>
+<b><code>Print colors binding</code></b>&nbsp;<code>{"method":"set","params":{"colorMatch":{"path":"path/filename.gcode","list":[IColorMatch]}}}</code> </summary>
+
+Send this to bind colors from the cfs to a multicolor print
+
+#### Params
+params            | value         | desc
+------------------|---------------|----------------------
+"colorMatch.path" | [string]      | path + filename
+"colormatch.list" | [IColorMatch] | colors for print file
+
+#### Request
+```{"method":"set","params":{"colorMatch":{"path":"/mnt/UDISK/printer_data/gcodes/filename.gcode","list":[{"id":"T1A","type":"PLA","color":"#ffffff","boxId":1,"materialId":0}]}}}```
+
+</details>
+
+<details>
+<summary>
+<b><code>Print gcode file</code></b>&nbsp;<code>{"method":"set","params":{"multiColorPrint":{"gcode":"path/filename.gcode","enableSelfTest":0}}}</code> </summary>
+
+#### Params
+params           | value    | desc
+-----------------|----------|-------------------
+"gcode"          | [string] | path + filename
+"enableSelfTest" | 0 - 1    | enable calibration
+
+#### Request
+```{"method":"set","params":{"multiColorPrint":{"gcode":"/mnt/UDISK/printer_data/gcodes/filename.gcode","enableSelfTest":0}}}```
+
+</details>

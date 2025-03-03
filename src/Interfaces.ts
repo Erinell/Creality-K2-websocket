@@ -341,3 +341,11 @@ interface KvParam {
     textured_plate_temp_initial_layer: string;
     filament_shrinkage_compensation_z?: string;
 }
+
+export interface IColorMatch {
+    id: string;
+    color: string;
+    type: string;
+    boxId: number;
+    materialId: number;
+}

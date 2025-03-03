@@ -1,4 +1,4 @@
-import type { IBoxConfig, IBoxInfo, IElapseVideo, IGcodeFileInfo, IHistoric, IPrintObjects, IRequestPayload, IRetMaterial, IStatus, ITemps } from "./Interfaces";
+import type { IBoxConfig, IBoxInfo, IElapseVideo, IGcodeFileInfo, IHistoric, IPrintObjects, IRequestPayload, IRetMaterial, IStatus, ITemps, IColorMatch } from "./Interfaces";
 import { Requests } from "./Requests";
 
 export class Printer {
@@ -24,7 +24,6 @@ export class Printer {
             this.ws.addEventListener("close", (event) => this.onClose(event));
 
             this.ws.onmessage = (event) => {
-                this.status = JSON.parse(event.data);
                 resolve(this.status);
             }
 
@@ -230,4 +229,28 @@ export class Printer {
         this.set(req);
     }
 
+    async getColorsMatchFormat(): Promise<IColorMatch[]> {
+        const letters = ['A', 'B', 'C', 'D'];
+        const cfsInfos = await this.getCFSInfos();
+
+        let slots = [];
+        for (let i = 1; i <= this.status.cfsConnect; i++) {
+            slots.push(...cfsInfos.materialBoxs[i].materials.map(item => {
+                return {
+                    "id": `T${i}${letters[item.id]}`,
+                    "color": item.color,
+                    "type": item.type,
+                    "boxId": i,
+                    "materialId": item.id
+                }
+            }));
+        }
+
+        return slots;
+    }
+
+    multiColorPrint(filename: string, calibration: boolean = false) {
+        const req = Requests.createRequest('set', { "multiColorPrint": { "gcode": `/mnt/UDISK/printer_data/gcodes/${filename}.gcode`, "enableSelfTest": calibration ? 1 : 0 } });
+        this.set(req);
+    }
 }
