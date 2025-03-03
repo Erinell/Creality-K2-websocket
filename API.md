@@ -687,7 +687,7 @@ params            | value         | desc
 
 <details>
 <summary>
-<b><code>Print gcode file with cfs</code></b>&nbsp;<code>{"method":"set","params":{"multiColorPrint":{"gcode":"path/filename.gcode","enableSelfTest":0}}}</code> </summary>
+<b><code>Print file with cfs</code></b>&nbsp;<code>{"method":"set","params":{"multiColorPrint":{"gcode":"path/filename.gcode","enableSelfTest":0}}}</code> </summary>
 
 #### Params
 params           | value    | desc
@@ -702,7 +702,7 @@ params           | value    | desc
 
 <details>
 <summary>
-<b><code>Print gcode file with spool holder</code></b>&nbsp;<code>{"method":"set","params":{ "opGcodeFile": "printprt:/path/filename.gcode", "enableSelfTest": 0 }}</code> </summary>
+<b><code>Print file with spool holder</code></b>&nbsp;<code>{"method":"set","params":{ "opGcodeFile": "printprt:/path/filename.gcode", "enableSelfTest": 0 }}</code> </summary>
 
 > [!WARNING]
 > Make sure to feed filament in the extruder before sending this request, as it uses the spool holder.
