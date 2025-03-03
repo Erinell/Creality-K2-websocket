@@ -248,4 +248,12 @@ export class Printer {
     stop() {
         this.set(Requests.stop());
     }
+
+    extrude(cfsId: number, slotId: number) {
+        this.set(Requests.feedInOrOut(cfsId, slotId, 1));
+    }
+
+    retract(cfsId: number, slotId: number) {
+        this.set(Requests.feedInOrOut(cfsId, slotId, 0));
+    }
 }

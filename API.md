@@ -650,18 +650,18 @@ params          | value          | desc
 <b><code>Filament infos</code></b>&nbsp;<code>{"method":"set","params":{"modifyMaterial":IMaterial}}</code> </summary>
 
 #### Params
-params  | value | desc
---------|-------|----------
-"boxId" | 1-4   | CFS index (0 = spool holder)
-"id"| 0-3 | spool index
-"rfid"| [string] | material index
-"type"| [string] | filament type
-"vendor"| [string] | filament brand
-"name"| [string] | filament name
-"color"|[string] | hex color
-"minTemp"| [number] | work only with decimal
-"maxTemp"| [number] | work only with decimal
-"pressure"| [number] | pressure advance
+params     | value    | desc
+-----------|----------|-----------------------------
+"boxId"    | 1-4      | CFS index (0 = spool holder)
+"id"       | 0-3      | spool index
+"rfid"     | [string] | material index
+"type"     | [string] | filament type
+"vendor"   | [string] | filament brand
+"name"     | [string] | filament name
+"color"    | [string] | hex color
+"minTemp"  | [number] | work only with decimal
+"maxTemp"  | [number] | work only with decimal
+"pressure" | [number] | pressure advance
 
 #### Request
 ```{"method":"set","params":{"modifyMaterial":{"boxId":1,"id":3,"rfid":"00001","type":"PLA","vendor":"Creality","name":"CR-PLA","color":"#0ba552a","minTemp":190.0,"maxTemp":240.0,"pressure":0.056}}}```
@@ -725,5 +725,21 @@ params | value | desc
 
 #### Request
 ```{"method":"set","params":{"stop": 1}}```
+
+</details>
+
+<details>
+<summary>
+<b><code>Extrude / Retract filament</code></b>&nbsp;<code>{"method":"set","params":{ "feedInOrOut": { "boxId": 1, "materialId": 0, "isFeed": 1 } }}</code> </summary>
+
+#### Params
+params       | value | desc
+-------------|-------|-----------------------------
+"boxId"      | 0 -4  | CFS index (0 = spool holder)
+"materialId" | 0-3   | spool index
+"isFeed"     | 0 - 1 | 0 = retract, 1 = extrude
+
+#### Request
+```{"method":"set","params":{ "feedInOrOut": { "boxId": 1, "materialId": 0, "isFeed": 1 } }}```
 
 </details>

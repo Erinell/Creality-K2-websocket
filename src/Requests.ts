@@ -47,12 +47,14 @@ export class Requests {
         this.createRequest("set", { "ctrlVideoFiles": { "cmd": "remove", "printId": "", "file": `/mnt/UDISK/creality/userdata/delay_image/video/${id}.mp4` } })
     static multiColorPrint = (filename: string, calibration: boolean) =>
         this.createRequest("set", { "multiColorPrint": { "gcode": `/mnt/UDISK/printer_data/gcodes/${filename}.gcode`, "enableSelfTest": calibration ? 1 : 0 } })
-    static pause = () => 
+    static pause = () =>
         this.createRequest("set", { "pause": 1 });
-    static resume = () => 
+    static resume = () =>
         this.createRequest("set", { "pause": 0 });
-    static stop = () => 
+    static stop = () =>
         this.createRequest("set", { "stop": 1 });
+    static feedInOrOut = (cfsId: number, slotId: number, feed: number) =>
+        this.createRequest("set", { "feedInOrOut": { "boxId": cfsId, "materialId": slotId, "isFeed": feed } })
 
     static createRequest(method: string, params: IParams, id?: string): IRequestPayload {
         const value = JSON.stringify({ method, params })
