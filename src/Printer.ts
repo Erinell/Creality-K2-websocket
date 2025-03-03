@@ -141,6 +141,7 @@ export class Printer {
     }
 
     setFan(percent: number) {
+        percent = Math.min(100, Math.max(0, percent));
         const req = Requests.createRequest('set', { "gcodeCmd": `M106 P0 S${Math.round(percent * 255 / 100)}` });
         this.set(req);
     }
@@ -151,6 +152,7 @@ export class Printer {
     }
 
     setSidesFans(percent: number) {
+        percent = Math.min(100, Math.max(0, percent));
         const req = Requests.createRequest('set', { "gcodeCmd": `M106 P2 S${Math.round(percent * 255 / 100)}` });
         this.set(req);
     }
@@ -161,6 +163,7 @@ export class Printer {
     }
 
     setCaseFans(percent: number) {
+        percent = Math.min(100, Math.max(0, percent));
         const req = Requests.createRequest('set', { "gcodeCmd": `M106 P1 S${Math.round(percent * 255 / 100)}` });
         this.set(req);
     }
@@ -176,21 +179,25 @@ export class Printer {
     }
 
     setFeedrate(percent: number) {
+        percent = Math.min(100, Math.max(0, percent));
         const req = Requests.createRequest('set', { "setFeedratePct": Math.round(percent) });
         this.set(req);
     }
 
     setNozzleTemp(temperature: number) {
+        temperature = Math.min(temperature, this.status.maxNozzleTemp);
         const req = Requests.createRequest('set', { "nozzleTempControl": temperature });
         this.set(req);
     }
 
     setBedTemp(temperature: number) {
+        temperature = Math.min(temperature, this.status.maxBedTemp);
         const req = Requests.createRequest('set', { "bedTempControl": { "num": 0, "val": temperature } });
         this.set(req);
     }
 
     setChamberTemp(temperature: number) {
+        temperature = Math.min(temperature, this.status.maxBoxTemp);
         const req = Requests.createRequest('set', { "boxTempControl": temperature });
         this.set(req);
     }
