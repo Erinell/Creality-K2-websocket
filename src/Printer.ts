@@ -50,7 +50,7 @@ export class Printer {
         if (requestId === 'nozzleTemp') {
             const temps: ITemps = JSON.parse(response);
             this.nozzleTemp = parseFloat(temps.nozzleTemp);
-            this.bedTemp = parseFloat(temps.bedTemp0);
+            this.bedTemp = parseFloat(temps.bedTemp0) || this.bedTemp;
             this.chamberTemp = temps.boxTemp || -1;
         }
 
