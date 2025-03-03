@@ -45,8 +45,10 @@ export class Requests {
         this.createRequest("set", { "deleteHistory": [id] });
     static deleteTimelapse = (id: number) =>
         this.createRequest("set", { "ctrlVideoFiles": { "cmd": "remove", "printId": "", "file": `/mnt/UDISK/creality/userdata/delay_image/video/${id}.mp4` } })
-    static multiColorPrint = (filename: string, calibration: boolean) =>
+    static startCFSPrint = (filename: string, calibration: boolean) =>
         this.createRequest("set", { "multiColorPrint": { "gcode": `/mnt/UDISK/printer_data/gcodes/${filename}.gcode`, "enableSelfTest": calibration ? 1 : 0 } })
+    static startPrint = (filename: string, calibration: boolean) =>
+        this.createRequest("set", { "opGcodeFile": `printprt:/mnt/UDISK/printer_data/gcodes/${filename}.gcode`, "enableSelfTest": calibration ? 1 : 0 })
     static pause = () =>
         this.createRequest("set", { "pause": 1 });
     static resume = () =>

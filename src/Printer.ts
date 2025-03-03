@@ -232,9 +232,18 @@ export class Printer {
         return slots;
     }
 
-    multiColorPrint(filename: string, calibration: boolean = false) {
+    startCFSPrint(filename: string, calibration: boolean = false) {
         filename = filename.replace(".gcode", "");
-        this.set(Requests.multiColorPrint(filename, calibration));
+        this.set(Requests.startCFSPrint(filename, calibration));
+    }
+
+    startPrint(filename: string, calibration: boolean = false) {
+        // WARNING
+        // Make sure to feed filament in the extruder before sending this request, as it uses the spool holder.
+        // If there is no filament loaded, the print will be cancelled.
+        
+        filename = filename.replace(".gcode", "");
+        this.set(Requests.startPrint(filename, calibration));
     }
 
     pause() {

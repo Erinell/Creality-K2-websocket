@@ -687,7 +687,7 @@ params            | value         | desc
 
 <details>
 <summary>
-<b><code>Print gcode file</code></b>&nbsp;<code>{"method":"set","params":{"multiColorPrint":{"gcode":"path/filename.gcode","enableSelfTest":0}}}</code> </summary>
+<b><code>Print gcode file with cfs</code></b>&nbsp;<code>{"method":"set","params":{"multiColorPrint":{"gcode":"path/filename.gcode","enableSelfTest":0}}}</code> </summary>
 
 #### Params
 params           | value    | desc
@@ -697,6 +697,26 @@ params           | value    | desc
 
 #### Request
 ```{"method":"set","params":{"multiColorPrint":{"gcode":"/mnt/UDISK/printer_data/gcodes/filename.gcode","enableSelfTest":0}}}```
+
+</details>
+
+<details>
+<summary>
+<b><code>Print gcode file with spool holder</code></b>&nbsp;<code>{"method":"set","params":{ "opGcodeFile": "printprt:/path/filename.gcode", "enableSelfTest": 0 }}</code> </summary>
+
+> [!WARNING]
+> Make sure to feed filament in the extruder before sending this request, as it uses the spool holder.
+> If there is no filament loaded, the print will be cancelled.
+
+
+#### Params
+params           | value    | desc
+-----------------|----------|------------------------------
+"opGcodeFile"    | [string] | "printprt:" + path + filename
+"enableSelfTest" | 0 - 1    | enable calibration
+
+#### Request
+```{"method":"set","params":{ "opGcodeFile": "printprt:/mnt/UDISK/printer_data/gcodes/filename.gcode", "enableSelfTest": 0 }}```
 
 </details>
 
